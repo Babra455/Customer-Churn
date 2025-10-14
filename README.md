@@ -34,11 +34,24 @@ To better understand the relationships between numerical variables, I performed 
 
  Results, Recommendations & Next Steps
 
-The logistic regression model trained on the customer dataset achieved an accuracy of 79% and an AUC-ROC score of 0.61. However, precision, recall, and F1-score were all recorded at 0.00, indicating the model struggled to correctly identify customers likely to churn. This performance gap suggests that the model is biased toward the majority class (non-churners), likely due to class imbalance and limited predictive power of the current features. Correlation analysis supported this, revealing only a very weak negative relationship between login frequency and churn, and virtually no correlation between amount spent and churn status. 
-This implies that customers may churn regardless of how much they spend, but lower engagement (fewer logins) may slightly increase churn risk.
-Based on these findings, it is recommended that the business focus on improving customer engagement, particularly targeting users with low login frequency. Campaigns encouraging regular platform use, reminders, or personalized offers may help retain these users. Moreover, enhancing the dataset with more behavior-related features—such as customer satisfaction scores, resolution times for service issues, or complaint history—could improve model performance. For modeling, trying advanced algorithms like Random Forest or XGBoost, along with hyperparameter tuning, may yield better predictive power, especially for detecting minority churn cases.
+After applying logistic regression to the customer churn dataset, the initial model achieved an accuracy of 79% and an AUC-ROC score of 0.61. However, it completely failed to identify churn cases, as shown by 0.00 scores for precision, recall, and F1-score. This strongly suggested class imbalance, where the model overly favored the majority class (non-churners) and lacked predictive sensitivity for the minority class (churners).
 
-Next Steps
+To address this, SMOTE (Synthetic Minority Over-sampling Technique) was applied to balance the training data. Following resampling, the model's performance shifted:  
+- Accuracy: 70.89%  
+- Precision: 29.82%  
+- Recall: 30.23%  
+- F1-score: 30.02%  
+- AUC-ROC: 0.56  
 
-Looking forward, next steps include expanding the feature set to capture more customer behavior and interaction nuances, tuning models for improved performance, and deploying results through an interactive dashboard (e.g., using Streamlit or Power BI). Additionally, incorporating time-based trends can help forecast future churn, enabling the business to take proactive retention measures.
+Although the overall accuracy slightly dropped, the model is now better at identifying churners, as reflected in the significant improvement in recall and F1-score. These gains highlight that balancing the data helped the model learn patterns from the minority class, though further optimization is still needed.
+The new confusion matrix showed that the model could now correctly identify more churners, reflecting improved sensitivity. While there’s still room for improvement, applying SMOTE significantly enhanced the model’s ability to detect minority class instances.
+
+Correlation analysis also revealed minimal predictive relationships:  
+- Amount Spent showed virtually no correlation with churn.
+- Login Frequency had a very weak negative correlation with churn (-0.096), suggesting that customers who log in less often might be at slightly higher risk of churning.
+
+Recommendations:  
+- Improve engagement: Encourage users with low login activity through targeted campaigns, nudges, or loyalty rewards.
+- Feature expansion: Include richer behavioral or satisfaction-related data (e.g., complaints, service quality ratings, resolution speed).
+- Model improvement: Try ensemble models like Random Forest or XGBoost, and apply hyperparameter tuning to boost performance.
 
