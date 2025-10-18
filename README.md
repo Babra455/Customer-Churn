@@ -28,22 +28,17 @@ To better understand the relationships between numerical variables, I performed 
 - Exploratory Data Analysis (EDA)  
 - Correlation Analysis  
 - Model Building (Logistic Regression using Scikit-learn)  
-- Model Evaluation (Accuracy, Precision, Recall, F1, AUC-ROC)  
-- Python Libraries: Pandas, NumPy, Seaborn, Matplotlib, Scikit-learn, Imbalanced-learn
+- Model Evaluation ( AUC-ROC)  
+- Python Libraries: Pandas, NumPy, Seaborn, Matplotlib, Scikit-learn
 
  Results, Recommendations & Next Steps
 
-After applying logistic regression to the customer churn dataset, the initial model achieved an accuracy of 79% and an AUC-ROC score of 0.61. However, it completely failed to identify churn cases, as shown by 0.00 scores for precision, recall, and F1-score. This strongly suggested class imbalance, where the model overly favored the majority class (non-churners) and lacked predictive sensitivity for the minority class (churners).
+After applying a Random Forest Classifier to the customer churn dataset, only the categorical columns were encoded, and datetime-related columns were dropped during preprocessing. The model was then trained and evaluated using the AUC-ROC metric, which achieved an impressive score of 0.9979.
 
-To address this, SMOTE (Synthetic Minority Over-sampling Technique) was applied to balance the training data. Following resampling, the model's performance shifted:  
-- Accuracy: 70.89%  
-- Precision: 29.82%  
-- Recall: 30.23%  
-- F1-score: 30.02%  
-- AUC-ROC: 0.56  
+This exceptionally high AUC-ROC value indicates that the model has an excellent ability to distinguish between churners and non-churners, showing strong predictive performance. The ROC curve, plotted using the false positive rate (FPR) and true positive rate (TPR) derived from the model’s prediction probabilities, further confirmed its robust discriminative power.
 
-Although the overall accuracy slightly dropped, the model is now better at identifying churners, as reflected in the significant improvement in recall and F1-score. These gains highlight that balancing the data helped the model learn patterns from the minority class, though further optimization is still needed.
-The new confusion matrix showed that the model could now correctly identify more churners, reflecting improved sensitivity. While there’s still room for improvement, applying SMOTE significantly enhanced the model’s ability to detect minority class instances.I used SMOTE to balance the training data, then trained a logistic regression model and made predictions on the test set. I calculated evaluation metrics including accuracy, precision, recall, F1-score, and AUC-ROC. Lastly, I computed prediction probabilities, false positive rate, true positive rate, and plotted the ROC curve to assess model performance.
+Overall, the results demonstrate that even with minimal preprocessing—limited to encoding categorical features and removing date columns—the Random Forest Classifier performed remarkably well in identifying churn patterns within the dataset.
+
 
 Correlation analysis also revealed minimal predictive relationships:  
 - Amount Spent showed virtually no correlation with churn.
